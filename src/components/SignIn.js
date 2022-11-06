@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -26,14 +27,23 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn({setName}) {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //   });
+  // };
+
+  // ボタンの初期値としてdisabledをtrueとすることで初期状態で押せないようにしたい
+  const [disabled, setDisabled] = useState(true);
+  const [string, setString] = useState('');
+  console.log(string);
+  useEffect(()=>{
+    const disabled = string === '';
+    setDisabled(disabled)
+  }, [string]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -50,7 +60,7 @@ export default function SignIn({setName}) {
           <Typography component="h1" variant="h5">
             ようこそ
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -59,12 +69,19 @@ export default function SignIn({setName}) {
               label="ニックネーム"
               name="name"
               autoFocus
+              onChange={(event)=>setString(event.target.value)}
             />
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={disabled}
+              onClick={()=>{
+                setName(string)
+              }}
+              //ボタンが押されたタイミングでnameにstringの内容を格納した。(メモと同じことをしている)
+              //Buttonコンポーネントがどのような引数を取れるのか、はMaterial-UIを検索する
             >
               はじめる
             </Button>
