@@ -39,6 +39,7 @@ export default function SignIn({setName}) {
   // ボタンの初期値としてdisabledをtrueとすることで初期状態で押せないようにしたい
   const [disabled, setDisabled] = useState(true);
   const [string, setString] = useState('');
+  const [isComposed, setIsComposed] = useState(false);
   console.log(string);
   useEffect(()=>{
     const disabled = string === '';
@@ -70,6 +71,17 @@ export default function SignIn({setName}) {
               name="name"
               autoFocus
               onChange={(event)=>setString(event.target.value)}
+              onKeyDown={(event)=>{
+                if(isComposed) return;
+                //名前編集中ならアーリーリターンで下のsetNameが機能しないようにした
+
+                if(event.key === 'Enter'){
+                  setName(event.target.value);
+                  event.preventDefault();
+                }
+              }}
+              onCompositionStart={()=>setIsComposed(true)}
+              onCompositionEnd={()=>setIsComposed(false)}
             />
             <Button
               type="button"
