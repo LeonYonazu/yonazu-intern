@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { TextField } from '@material-ui/core';
+import { pushMessage } from '../firebase';
 
 
 const MessageField = ({name, setText, text}) =>{
@@ -15,6 +16,7 @@ const MessageField = ({name, setText, text}) =>{
     if (text === '') return;
 
     if(event.key === 'Enter'){
+      pushMessage({name: 'よなづ' ,text});
       setText('');
       event.preventDefault();
     }
