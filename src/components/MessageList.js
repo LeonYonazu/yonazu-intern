@@ -43,7 +43,7 @@ const MessageList = () =>{
         return(
         <MessageItem 
         key={key} 
-        name={name} 
+        name={name || ''} // ここが原因
         text={text}
         isLastItem={isLastItem} 
         />
