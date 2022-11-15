@@ -27,20 +27,12 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn({setName}) {
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
-  // };
-
   // ボタンの初期値としてdisabledをtrueとすることで初期状態で押せないようにしたい
   const [disabled, setDisabled] = useState(true);
   const [string, setString] = useState('');
   const [isComposed, setIsComposed] = useState(false);
   console.log(string);
+
   useEffect(()=>{
     const disabled = string === '';
     setDisabled(disabled)
@@ -74,7 +66,6 @@ export default function SignIn({setName}) {
               onKeyDown={(event)=>{
                 if(isComposed) return;
                 //名前編集中ならアーリーリターンで下のsetNameが機能しないようにした
-
                 if(event.key === 'Enter'){
                   setName(event.target.value);
                   event.preventDefault();

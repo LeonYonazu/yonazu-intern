@@ -27,8 +27,9 @@ const MessageList = () =>{
       const newMessages = entries.map((entry)=>{
         const key = entry[0];
         const nameAndText = entry[1];
-        return {key, ...nameAndText };
+        return {key, ...nameAndText};
       });
+      console.log({messages})
       setMessages(newMessages);
     });
   }, []);
